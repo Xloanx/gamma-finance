@@ -8,6 +8,7 @@ import FinancialAdviceForm from "@/components/financialAdviceForm";  // Renamed 
 import SystemReport from "@/components/systemReport";
 import MarketInsight from "@/components/marketInsight";
 import { FaHome } from "react-icons/fa";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 
 export default function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -62,9 +63,9 @@ export default function Dashboard() {
         {/* Top Navbar */}
         <header className="flex justify-between items-center mb-6 bg-white shadow-lg p-4 rounded-lg">
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <Button className="bg-red-500 hover:bg-red-700" onClick={() => alert("Logging out...")}>
-            Logout
-          </Button>
+          
+
+          <UserButton />
         </header>
 
         {/* Dynamic Main Content */}
