@@ -12,10 +12,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const StockSelect = () => {
+const StockSelect = ({onStockSelect}) => {
     const [selectedStock, setSelectedStock] = useState("");
     return ( 
-        <Select onValueChange={setSelectedStock}>
+        <Select onValueChange={onStockSelect}>
             <SelectTrigger className="w-[280px]">
               <SelectValue placeholder="Select a Stock of Interest" />
             </SelectTrigger>
