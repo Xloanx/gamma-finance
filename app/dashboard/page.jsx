@@ -13,6 +13,7 @@ import FinancialAdviceForm from "@/components/financialAdviceForm";
 import ChatBox from "@/components/chatbox";
 import SystemReport from "@/components/systemReport";
 import MarketInsight from "@/components/marketInsight";
+import SendUserData from "./sendUserData";
 
 export default function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -27,7 +28,9 @@ export default function Dashboard() {
 
 
   return (
+    
     <div className="flex h-screen">
+      <SendUserData />
       {/* Sidebar Navigation */}
       <motion.aside
         className={`${
@@ -80,33 +83,33 @@ export default function Dashboard() {
         </header>
 
         {/* Dynamic Main Content */}
-        <div className="flex flex-row" >
-          <motion.div className="text-lg bg-white p-6 rounded-lg shadow-lg mr-2"
+        {/* <div className="flex flex-row" > */}
+          <motion.div className="text-lg bg-white p-1 rounded-lg shadow-lg"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}
           >
             {activeFeature === "welcome" && (
               <p>Welcome to Gamma AI Financial Advice System! <br/> Use the sidebar to navigate through the available features.</p>
             )}
             {/* {activeFeature === "advice" && <FinancialAdviceForm />} */}
-            {activeFeature === "advice" && <ChatBox onVideoResponse={handleVideoResponse}/>}
+            {activeFeature === "advice" && <ChatBox />}
             {activeFeature === "report" && <SystemReport />}
             {activeFeature === "insight" && <MarketInsight />}
           </motion.div>
 
-          <div className="">
+          {/* <div className="">
           {videoMessage && (
             <div className="video-container mt-6 p-4 bg-white shadow-md rounded-lg w-full max-w-2xl">
               <h3 className="text-lg font-bold mb-2">Gama Advisor Video Response</h3>
               <p>{videoMessage.text}</p>
-              {/* Placeholder for Video Rendering */}
+              {/* Placeholder for Video Rendering 
               <video className="w-full rounded-lg" controls>
                 <source src="/stock1.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
           )}
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </main>
     </div>
   );

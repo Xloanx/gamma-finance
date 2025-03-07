@@ -10,12 +10,13 @@ import StockSelect from './stock-select';
 import { ArrowDown } from 'lucide-react';
 
 
-const ChatBox = ({ onVideoResponse }) => {
+const ChatBox = () => {
   const { messages, addMessage } = useChatStore();
   const [isTyping, setIsTyping] = useState(false);
   const [selectedStock, setSelectedStock] = useState(null);
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
+  const token = localStorage.getItem("jwt");
 
   const handleStockSelect = (stock) => {
     setSelectedStock(stock);
@@ -30,38 +31,19 @@ const ChatBox = ({ onVideoResponse }) => {
     addMessage({ id: Date.now().toString(), text: modifiedMessage, sender: 'user' });
     setIsTyping(true);
 
-    // setTimeout(() => {
-    //     const isVideoResponse = message.toLowerCase().includes('video');
-    //     // const isVideoResponse = true;
-
-    //     const aiMessage = {
-    //         id: Date.now().toString(),
-    //         text: isVideoResponse ? 'AI Video Response: [Video Placeholder]' : `AI Response: ${message}`,
-    //         sender: 'ai',
-    //         type: isVideoResponse ? 'video' : 'text',
-    //       };
-
-    //     if (isVideoResponse) {
-    //         onVideoResponse(aiMessage);
-    //       } else {
-    //         addMessage(aiMessage);
-    //       }
-    
-    //     setIsTyping(false);
-    //   }, 2000);
-
-
+   
     try {
       const response = await fetch('https://gamma-rag-financial-advisor.onrender.com/chat', { // Update if hosted elsewhere
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          // "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({ message: modifiedMessage }),
+        body: JSON.stringify({ query: modifiedMessage }),
       });
   
       const data = await response.json();
-  
+      console.log(data)
       if (response.ok) {
         const aiMessage = {
           id: Date.now().toString(),
