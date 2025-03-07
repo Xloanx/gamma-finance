@@ -22,59 +22,59 @@ const StockSelect = ({onStockSelect}) => {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Energy</SelectLabel>
-                <SelectItem value="xom">ExxonMobil</SelectItem>
-                <SelectItem value="cvx">Chevron</SelectItem>
+                <SelectItem value="ExxonMobil(xom)">ExxonMobil</SelectItem>
+                <SelectItem value="Chevron(cvx)">Chevron</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Materials</SelectLabel>
-                <SelectItem value="dow">Dow Inc.</SelectItem>
-                <SelectItem value="dd">DuPont de Nemours (DD)</SelectItem>
+                <SelectItem value="Dow Inc.(dow)">Dow Inc.</SelectItem>
+                <SelectItem value="DuPont de Nemours (DD)">DuPont de Nemours (DD)</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Industrials</SelectLabel>
-                <SelectItem value="ba">Boeing </SelectItem>
-                <SelectItem value="cat">Caterpillar</SelectItem>
+                <SelectItem value="Boeing (ba)">Boeing </SelectItem>
+                <SelectItem value="Caterpillar(cat)">Caterpillar</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Consumer Discretionary</SelectLabel>
-                <SelectItem value="amzn">Amazon</SelectItem>
-                <SelectItem value="tsla"> Tesla </SelectItem>
+                <SelectItem value="Amazon(amzn)">Amazon</SelectItem>
+                <SelectItem value="Tesla(tsla)"> Tesla </SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Consumer Staples</SelectLabel>
-                <SelectItem value="pg">Procter & Gamble</SelectItem>
-                <SelectItem value="ko">Coca-Cola</SelectItem>
+                <SelectItem value="Procter & Gamble(pg)">Procter & Gamble</SelectItem>
+                <SelectItem value="Coca-Cola(ko)">Coca-Cola</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Health Care</SelectLabel>
-                <SelectItem value="jnj">Johnson & Johnson</SelectItem>
-                <SelectItem value="pfe">Pfizer</SelectItem>
+                <SelectItem value="Johnson & Johnson(jnj)">Johnson & Johnson</SelectItem>
+                <SelectItem value="Pfizer(pfe)">Pfizer</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Financials</SelectLabel>
-                <SelectItem value="jpm">JPMorgan Chase</SelectItem>
-                <SelectItem value="gs">Goldman Sachs</SelectItem>
+                <SelectItem value="JPMorgan Chase(jpm)">JPMorgan Chase</SelectItem>
+                <SelectItem value="Goldman Sachs(gs)">Goldman Sachs</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Information Technology</SelectLabel>
-                <SelectItem value="aapl">Apple</SelectItem>
-                <SelectItem value="msft">Microsoft</SelectItem>
-                <SelectItem value="nvda">NVIDIA</SelectItem>
+                <SelectItem value="Apple(aapl)">Apple</SelectItem>
+                <SelectItem value="Microsoft(msft)">Microsoft</SelectItem>
+                <SelectItem value="NVIDIA(nvda)">NVIDIA</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Communication Services</SelectLabel>
-                <SelectItem value="goog">Alphabet</SelectItem>
-                <SelectItem value="meta"> Meta Platforms </SelectItem>
+                <SelectItem value="Alphabet(GOOG)">Alphabet</SelectItem>
+                <SelectItem value="Meta Platforms (meta)"> Meta Platforms </SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Utilities</SelectLabel>
-                <SelectItem value="duk">Duke Energy</SelectItem>
-                <SelectItem value="nee">NextEra Energy</SelectItem>
+                <SelectItem value="Duke Energy(duk)">Duke Energy</SelectItem>
+                <SelectItem value="NextEra Energy(nee)">NextEra Energy</SelectItem>
               </SelectGroup>
               <SelectGroup>
                 <SelectLabel>Real Estate</SelectLabel>
-                <SelectItem value="amt">American Tower Corporation</SelectItem>
-                <SelectItem value="spg">Simon Property Group</SelectItem>
+                <SelectItem value="American Tower Corporation(amt)">American Tower Corporation</SelectItem>
+                <SelectItem value="Simon Property Group(spg)">Simon Property Group</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
