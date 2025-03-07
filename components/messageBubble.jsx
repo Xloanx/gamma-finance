@@ -1,6 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
+import ReactMarkdown from 'react-markdown';
 
 const MessageBubble = ({ text, sender }) => {
   const isUser = sender === 'user';
@@ -14,7 +15,7 @@ const MessageBubble = ({ text, sender }) => {
     >
       <div className={`inline-block p-3 rounded-lg shadow-md ${isUser ? 'bg-blue-500 text-white' : 'bg-gray-100 text-black'}`}>
         {isUser ? (
-          text
+         <ReactMarkdown>{text}</ReactMarkdown> 
         ) : (
           <Typewriter
             words={[text]}
