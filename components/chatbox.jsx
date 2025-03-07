@@ -52,7 +52,7 @@ const ChatBox = ({ onVideoResponse }) => {
 
 
     try {
-      const response = await fetch('http://0.0.0.0:8000/chat', { // Update if hosted elsewhere
+      const response = await fetch('https://gamma-rag-financial-advisor.onrender.com/chat', { // Update if hosted elsewhere
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
