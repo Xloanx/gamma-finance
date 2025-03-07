@@ -81,7 +81,7 @@ export default function Dashboard() {
 
         {/* Dynamic Main Content */}
         <div className="flex flex-row" >
-          <motion.div className="text-lg bg-white p-6 rounded-lg shadow-lg w-1/2 mr-2"
+          <motion.div className="text-lg bg-white p-6 rounded-lg shadow-lg mr-2"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}
           >
             {activeFeature === "welcome" && (
@@ -93,7 +93,7 @@ export default function Dashboard() {
             {activeFeature === "insight" && <MarketInsight />}
           </motion.div>
 
-          <div className="w-1/2">
+          <div className="">
           {videoMessage && (
             <div className="video-container mt-6 p-4 bg-white shadow-md rounded-lg w-full max-w-2xl">
               <h3 className="text-lg font-bold mb-2">Gama Advisor Video Response</h3>
