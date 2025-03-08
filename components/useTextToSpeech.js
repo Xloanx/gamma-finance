@@ -10,8 +10,9 @@ const UseTextToSpeech = () => {
   };
 
   const stopSpeaking = () => {
-    window.speechSynthesis.cancel(); // Immediately stops the speech
-    setIsSpeaking(false);
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel(); // Immediately stop any ongoing speech
+    }
   };
 
   const speak = (text) => {
