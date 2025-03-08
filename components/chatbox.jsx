@@ -15,6 +15,8 @@ const ChatBox = () => {
   const { messages, addMessage } = useChatStore();
   const [isTyping, setIsTyping] = useState(false);
   const [selectedStock, setSelectedStock] = useState(null);
+  const [voice, setVoice] = useState(null);
+  const [abortController, setAbortController] = useState(null); //to house the abortion of previous AI response to handle new request
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
 
@@ -25,12 +27,24 @@ const ChatBox = () => {
     setSelectedStock(stock);
   };
 
-  const handleUserMessage = async (message) => {
-    stopSpeaking()
+  const handleUserMessage = async (message, isVoiceInput = false) => {
+    setVoice(isVoiceInput); //gives voice for voice
+    stopSpeaking(); //stop any ongoing speech before processing a new request 
+    setIsTyping(false); //stop any ongoing typing before processing a new request 
+
     if (!message.trim()) return;
 
+     // Cancel the previous AI response request
+    if (abortController) {
+      abortController.abort(); // Cancel ongoing request
+    }
+
+    const newAbortController = new AbortController();
+    setAbortController(newAbortController); // Store the new controller
+
     // Prepend selected stock symbol if available
-    const modifiedMessage = selectedStock ? `With respect to ${selectedStock}, ${message}` : message;
+    // const modifiedMessage = selectedStock ? `With respect to ${selectedStock}, ${message}` : message;
+    const modifiedMessage = selectedStock ? message : message;
 
     addMessage({ id: Date.now().toString(), text: modifiedMessage, sender: 'user' });
     setIsTyping(true);
@@ -39,11 +53,9 @@ const ChatBox = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`, { // Update if hosted elsewhere
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // "Authorization": `Bearer ${token}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: modifiedMessage }),
+        signal: newAbortController.signal, // Attach the abort signal
       });
   
       const data = await response.json();
@@ -56,7 +68,12 @@ const ChatBox = () => {
         };
   
         addMessage(aiMessage);
-        speak(data.response); //speak AI message automatically
+
+
+        // Only speak the response if the user input was voice
+        if (isVoiceInput) {
+          speak(data.response);
+        }
       } else {
         addMessage({
           id: Date.now().toString(),
@@ -65,12 +82,16 @@ const ChatBox = () => {
         });
       }
     } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('Previous request aborted.');
+      } else {
       console.error('Error fetching AI response:', error);
       addMessage({
         id: Date.now().toString(),
         text: 'Error: Server unreachable.',
         sender: 'ai',
       });
+    }
     } finally {
       setIsTyping(false);
     }
@@ -81,7 +102,7 @@ const ChatBox = () => {
     if (transcript.toLowerCase().includes(wakeWord)) {
       toggleListening();
     } else {
-    handleUserMessage(transcript);
+    handleUserMessage(transcript, true); //indicate voice input
   }});
 
   useEffect(() => {
@@ -112,7 +133,7 @@ const ChatBox = () => {
             <div className="chatbox-container p-6 bg-white rounded-lg shadow-md w-full max-w-2xl mx-auto">
             <div className='flex flex-row'>
             <StockSelect onStockSelect={handleStockSelect}/>
-            {isListening && <div className="mic-wave animate-ping bg-blue-500 w-4 h-4 rounded-full" />}
+            {isListening && voice && <div className="mic-wave animate-ping bg-blue-500 w-4 h-4 rounded-full" />}
             </div>
 
             <div className="chat-messages overflow-y-auto h-96 my-4 p-2 border rounded-lg">
@@ -129,7 +150,7 @@ const ChatBox = () => {
                     <ArrowDown size={24} />
                 </button>
             </div>
-            <ChatInput onSend={handleUserMessage} onSpeech={toggleListening} isListening={isListening} />
+            <ChatInput onSend={(message)=>handleUserMessage(message, false)} onSpeech={toggleListening} isListening={isListening} />
             
             </div>
         </>
