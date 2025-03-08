@@ -132,7 +132,7 @@ const ChatBox = () => {
 
             <div className="chatbox-container p-6 bg-white rounded-lg shadow-md w-full max-w-2xl mx-auto">
             <div className='flex flex-row'>
-            <StockSelect onStockSelect={handleStockSelect}/>
+            {/* <StockSelect onStockSelect={handleStockSelect}/> */}
             {isListening && voice && <div className="mic-wave animate-ping bg-blue-500 w-4 h-4 rounded-full" />}
             </div>
 
