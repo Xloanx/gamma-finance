@@ -14,7 +14,7 @@ export default function FinancialNewsFeed() {
         );
         const data = await response.json();
         if (data.feed) {
-          setNews(data.feed.slice(0, 5)); // Limit to latest 5 news items
+          setNews(data.feed.slice(0, 20)); // Limit to latest 20 news items
         }
       } catch (error) {
         console.error("Error fetching financial news:", error);
