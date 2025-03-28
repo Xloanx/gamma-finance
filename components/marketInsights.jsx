@@ -24,7 +24,7 @@ export default function MarketInsights() {
       try {
         const response = await fetch(
           // `https://api.allorigins.win/raw?url=http://gamma-fin-agent-734911192367.us-west1.run.app/analyze`,
-          `https://gamma-fin-agent-734911192367.us-west1.run.app/analyze/`,
+          `https://gamma-fin-agent-734911192367.us-west1.run.app/analyze`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
