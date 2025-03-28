@@ -5,15 +5,23 @@ import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FaHome } from "react-icons/fa";
-import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { BiSolidReport } from "react-icons/bi";
 import { TbReportSearch } from "react-icons/tb";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
-import FinancialAdviceForm from "@/components/financialAdviceForm";
 import ChatBox from "@/components/chatbox";
 import SystemReport from "@/components/systemReport";
-import MarketInsight from "@/components/marketInsight";
-import SendUserData from "./sendUserData";
+import PredictiveModel from "@/components/predictiveModel";
+import MarketInsights from "@/components/marketInsights";
+import LiveMarketData from "@/components/liveMarketData";
+import HistoricalDataChart from "@/components/historicalDataChart";
+// import SendUserData from "./sendUserData";
+import FinancialNewsFeed from "@/components/financialNewsFeed";
+import AnomalyDetectionChart from "@/components/anomalyDetectionChart";
+import PredictionConfidence from "@/components/predictionConfidence";
+import AnalystFeedback from "@/components/analystFeedback";
+// import VoiceInteraction from "@/components/voiceInteraction";
+
 
 export default function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -30,7 +38,7 @@ export default function Dashboard() {
   return (
     
     <div className="flex h-screen">
-      <SendUserData />
+      {/* <SendUserData /> */}
       {/* Sidebar Navigation */}
       <motion.aside
         className={`${
@@ -40,7 +48,7 @@ export default function Dashboard() {
         animate={{ width: sidebarOpen ? "20%" : "4rem" }}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className={`${sidebarOpen ? "text-2xl font-bold" : "hidden"}`}>Gamma Financial Advisor</h2>
+          <h2 className={`${sidebarOpen ? "text-2xl font-bold" : "hidden"}`}>Γ Finance</h2>
           <Button
             variant="ghost"
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -51,24 +59,23 @@ export default function Dashboard() {
         </div>
 
         <nav className="flex flex-col gap-4">
-            <Button 
-            variant="ghost"
-            className="mt-auto p-0 hover:bg-transparent focus:ring-0 focus:outline-none cursor-pointer"
-            // onClick={() => setActiveFeature("welcome")}
-            onClick={() => router.push("/")}
+          {[
+            { feature: "welcome", label: "Live Market", c1:"bg-gray-500", c2:"hover:bg-gray-700", icon: <MdOutlineSpeakerNotes /> },
+            { feature: "advice", label: "Financial Advice", c1:"bg-blue-500 ", c2:"hover:bg-blue-700", icon: <MdOutlineSpeakerNotes /> },
+            { feature: "report", label: "System Report", c1:"bg-green-500 ", c2:"hover:bg-green-700", icon: <BiSolidReport /> },
+            { feature: "predictive", label: "Predictive Modeling", c1:"bg-purple-500 ", c2:"hover:bg-purple-700", icon: <TbReportSearch /> },
+            { feature: "insight", label: "Market Insights & Trends", c1:"bg-yellow-500 ", c2:"hover:bg-yellow-700", icon: <TbReportSearch /> },
+          ].map(({ feature, label, icon, c1, c2 }) => (
+            <Button
+              key={feature}
+              className={`${
+                activeFeature === feature ? c1 : c2
+              } flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300`}
+              onClick={() => setActiveFeature(feature)}
             >
-            <FaHome className="text-white text-4xl hover:text-gray-300" />
+              {sidebarOpen ? label : <span title={label}>{icon}</span>}
             </Button>
-
-          <Button className="bg-blue-500 hover:bg-blue-700" onClick={() => setActiveFeature("advice")}>
-            {sidebarOpen ? "Ask for Financial Advice" : <MdOutlineSpeakerNotes />}
-          </Button>
-          <Button className="bg-green-500 hover:bg-green-700" onClick={() => setActiveFeature("report")}>
-            {sidebarOpen ? "View System Report" : <BiSolidReport />}
-          </Button>
-          <Button className="bg-yellow-500 hover:bg-yellow-700" onClick={() => setActiveFeature("insight")}>
-            {sidebarOpen ? "View Market Insights" : <TbReportSearch />}
-          </Button>
+          ))}
         </nav>
       </motion.aside>
 
@@ -84,33 +91,66 @@ export default function Dashboard() {
 
         {/* Dynamic Main Content */}
         {/* <div className="flex flex-row" > */}
-          <motion.div className="text-lg bg-white p-1 rounded-lg shadow-lg"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}
-          >
-            {activeFeature === "welcome" && (
-              <p>Welcome to Gamma AI Financial Advice System! <br/> Use the sidebar to navigate through the available features.</p>
-            )}
-            {/* {activeFeature === "advice" && <FinancialAdviceForm />} */}
-            {activeFeature === "advice" && <ChatBox />}
-            {activeFeature === "report" && <SystemReport />}
-            {activeFeature === "insight" && <MarketInsight />}
-          </motion.div>
+        <motion.div
+          className="text-lg bg-white p-1 rounded-lg shadow-lg"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3 }}
+        >
 
-          {/* <div className="">
-          {videoMessage && (
-            <div className="video-container mt-6 p-4 bg-white shadow-md rounded-lg w-full max-w-2xl">
-              <h3 className="text-lg font-bold mb-2">Gama Advisor Video Response</h3>
-              <p>{videoMessage.text}</p>
-              {/* Placeholder for Video Rendering 
-              <video className="w-full rounded-lg" controls>
-                <source src="/stock1.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          )}
-          </div> */}
-        {/* </div> */}
+            {activeFeature === "welcome" && (
+              <div>
+                <p>Welcome to Γ Finance System! <br/> Use the sidebar to navigate through the available features.</p>
+                <LiveMarketData />
+              </div>
+            )}
+
+            {activeFeature === "advice" && (
+              <div>
+                <ChatBox />
+                {/* <VoiceInteraction /> */}
+              </div>
+            )}
+            {activeFeature === "report" && (
+              <div>
+                <SystemReport />
+              </div>
+            )
+            }
+            {activeFeature === "insight" && (
+              <div>
+                <MarketInsights />
+                <HistoricalDataChart />
+                <FinancialNewsFeed />
+                <AnomalyDetectionChart />
+              </div>
+            )}
+            {activeFeature === "predictive" && (
+              <div>
+                <PredictiveModel />
+                <PredictionConfidence />
+                <AnalystFeedback />
+              </div>
+            )}
+          </motion.div>
       </main>
+
+      <div className="fixed bottom-6 right-6 flex flex-col gap-2">
+        <Button className="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-700" 
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+        </Button>
+        <Button className="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700" 
+          onClick={() => setActiveFeature("advice")}
+        >
+          💬
+        </Button>
+      </div>
+
+
+
     </div>
   );
 }

@@ -7,7 +7,6 @@ import TypingIndicator from './typingIndicator';
 import { useChatStore } from '@/store/chatStore';
 import UseSpeechRecognition from './useSpeechRecognition';
 import UseTextToSpeech from './useTextToSpeech';
-import StockSelect from './stock-select';
 import { ArrowDown } from 'lucide-react';
 
 
@@ -23,9 +22,9 @@ const ChatBox = () => {
   const { speak, stopSpeaking, isSpeaking } = UseTextToSpeech();
   const token = localStorage.getItem("jwt");
 
-  const handleStockSelect = (stock) => {
-    setSelectedStock(stock);
-  };
+  // const handleStockSelect = (stock) => {
+  //   setSelectedStock(stock);
+  // };
 
   const handleUserMessage = async (message, isVoiceInput = false) => {
     setVoice(isVoiceInput); //gives voice for voice
@@ -51,19 +50,27 @@ const ChatBox = () => {
 
    
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`, { // Update if hosted elsewhere
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/chat`, { 
+        // const response = await fetch("http://localhost:8000/api/chat", { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: modifiedMessage }),
         signal: newAbortController.signal, // Attach the abort signal
       });
-  
+
+      //Ensure the response is properly read
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      
       const data = await response.json();
-      // console.log(data)
-      if (response.ok) {
+      console.log("Response Data:", data);
+
+      if (data && data.ai_response) {
         const aiMessage = {
           id: Date.now().toString(),
-          text: data.response, // Response from FastAPI
+          text: data.ai_response, // Response from FastAPI
           sender: 'ai',
         };
   
@@ -75,11 +82,12 @@ const ChatBox = () => {
           speak(data.response);
         }
       } else {
-        addMessage({
-          id: Date.now().toString(),
-          text: 'Error: Unable to get AI response.',
-          sender: 'ai',
-        });
+          throw new Error("Invalid JSON response format");
+        // addMessage({
+        //   id: Date.now().toString(),
+        //   text: 'Error: Unable to get AI response.',
+        //   sender: 'ai',
+        // });
       }
     } catch (error) {
       if (error.name === 'AbortError') {
@@ -128,31 +136,38 @@ const ChatBox = () => {
 
   return (
         <>
-            
-
-            <div className="chatbox-container p-6 bg-white rounded-lg shadow-md w-full max-w-2xl mx-auto">
+          <div className="chatbox-container p-6 bg-white rounded-lg shadow-md w-full max-w-2xl mx-auto">
             <div className='flex flex-row'>
-            {/* <StockSelect onStockSelect={handleStockSelect}/> */}
-            {isListening && voice && <div className="mic-wave animate-ping bg-blue-500 w-4 h-4 rounded-full" />}
+              {
+              isListening && 
+              voice       && 
+              <div className="mic-wave animate-ping bg-blue-500 w-4 h-4 rounded-full" />
+              }
             </div>
 
-            <div className="chat-messages overflow-y-auto h-96 my-4 p-2 border rounded-lg">
+            <div ref={chatContainerRef} className="chat-messages overflow-y-auto h-96 my-4 p-2 border rounded-lg relative">
                 {messages.map((msg) => (
-                <MessageBubble key={msg.id} text={msg.text} sender={msg.sender} />
-                ))}
+                  <MessageBubble  key={msg.id} 
+                                  text={msg.text} 
+                                  sender={msg.sender} />
+                  ))
+                }
+
                 {isTyping && <TypingIndicator />}
                 <div ref={messagesEndRef} />
 
                 <button
-                    className="absolute bottom-20 right-6 bg-blue-500 text-white rounded-full p-2 shadow-lg hover:bg-blue-700"
-                    onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                    className="absolute bottom-20 right-6 bg-blue-500 
+                              text-white rounded-full p-2 shadow-lg hover:bg-blue-700"
+                              onClick={scrollToBottom}
+                    // onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
                 >
                     <ArrowDown size={24} />
                 </button>
             </div>
             <ChatInput onSend={(message)=>handleUserMessage(message, false)} onSpeech={toggleListening} isListening={isListening} />
-            
-            </div>
+          
+          </div>
         </>
   );
 };
