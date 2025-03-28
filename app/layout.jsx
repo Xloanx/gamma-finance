@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Gamma Advisor",
+  title: "Gamma Finance",
   description: "Developed by Team Gamma of DivVerse and Lobby AI Lab",
 };
 
