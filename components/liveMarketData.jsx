@@ -40,8 +40,8 @@ export default function LiveMarketData() {
     };
 
     fetchMarketData();
-    const interval = setInterval(fetchMarketData, 30000); // Fetch every 30 seconds
-    return () => clearInterval(interval);
+    // const interval = setInterval(fetchMarketData, 30000); // Fetch every 30 seconds
+    // return () => clearInterval(interval);
   }, [selectedStock]); // Refetch data when stock changes
 
   return (
