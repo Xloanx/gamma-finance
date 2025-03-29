@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaFilePdf } from "react-icons/fa6";
-
+import { IoReloadCircleSharp } from "react-icons/io5";
+import { Button } from "./ui/button";
 export default function MarketInsights({ selectedStock }) {
   const [stockInsights, setStockInsights] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,10 @@ export default function MarketInsights({ selectedStock }) {
     setReport(null);
 
     try {
-      const response = await axios.post(`/api/analyze`, { query: stock });
+      const response = await axios.post(
+                                "/api/analyze", 
+                                { query: stock }
+                              );
       setStockInsights(response.data.insights || "No insights available.");
       setReport(response.data.pdf_report || null);
     } catch (error) {
@@ -31,11 +35,15 @@ export default function MarketInsights({ selectedStock }) {
       setLoading(false);
     }
   };
-
+ 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">📊 Market Insights & Trends</h2>
-
+    <div className="bg-white p-6 border rounded-lg shadow-lg w-full">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">📊 Market Insights & Trends</h2>
+        <Button variant="ghost" className="mr-2" onClick={() => fetchMarketInsights(selectedStock)}>
+          <IoReloadCircleSharp />
+        </Button>
+      </div>
       {loading ? (
         <p className="text-center text-gray-500">🔄 Fetching market insights...</p>
       ) : error ? (

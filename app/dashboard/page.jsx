@@ -62,7 +62,7 @@ export default function Dashboard() {
             { feature: "insight", label: "Market Insights", c1:"bg-yellow-500 ", c2:"hover:bg-yellow-700", icon: <TbReportSearch /> },
             // { feature: "welcome", label: "Live Market", c1:"bg-gray-500", c2:"hover:bg-gray-700", icon: <MdOutlineSpeakerNotes /> },
             { feature: "advice", label: "Financial Advice", c1:"bg-blue-500 ", c2:"hover:bg-blue-700", icon: <MdOutlineSpeakerNotes /> },
-            { feature: "report", label: "System Report", c1:"bg-green-500 ", c2:"hover:bg-green-700", icon: <BiSolidReport /> },
+            { feature: "news", label: "Financial News", c1:"bg-green-500 ", c2:"hover:bg-green-700", icon: <BiSolidReport /> },
             { feature: "predictive", label: "Predictive Modeling", c1:"bg-purple-500 ", c2:"hover:bg-purple-700", icon: <TbReportSearch /> },
           ].map(({ feature, label, icon, c1, c2 }) => (
             <Button
@@ -108,7 +108,6 @@ export default function Dashboard() {
                 <LiveMarketData selectedStock={selectedStock}/>
                 <MarketInsights selectedStock={selectedStock}/>
                 <HistoricalDataChart selectedStock={selectedStock}/>
-                <FinancialNewsFeed selectedStock={selectedStock}/>
                 <AnomalyDetectionChart selectedStock={selectedStock}/>
               </div>
             )}
@@ -119,17 +118,13 @@ export default function Dashboard() {
                 {/* <VoiceInteraction /> */}
               </div>
             )}
-            {activeFeature === "report" && (
+            {activeFeature === "news" && (
               <div>
-                <SystemReport />
+                <FinancialNewsFeed />
               </div>
             )
             }
-            {/* {activeFeature === "insight" && (
-              <div>
-                
-              </div>
-            )} */}
+            
             {activeFeature === "predictive" && (
               <div>
                 <PredictiveModel />
