@@ -44,7 +44,7 @@ export default function HistoricalDataChart() {
 
   return (
     <div className="my-4 p-4 border rounded-lg shadow-md bg-white w-full">
-      <h2 className="text-xl font-bold mb-4">Historical Stock Trends</h2>
+      <h2 className="text-xl font-bold mb-4"> 📉 Historical Stock Trends</h2>
       {chartData ? <Line data={chartData} /> : <p>Loading chart...</p>}
     </div>
   );

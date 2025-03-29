@@ -55,7 +55,7 @@ export default function AnomalyDetectionChart() {
 
   return (
     <div className="p-4 border rounded-lg shadow-md bg-white w-full">
-      <h2 className="text-xl font-bold mb-4">Anomaly Detection</h2>
+      <h2 className="text-xl font-bold mb-4"> 🚨 Anomaly Detection</h2>
       {chartData ? (
         <>
           <Line data={chartData} />

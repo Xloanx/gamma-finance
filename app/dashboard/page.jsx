@@ -15,7 +15,7 @@ import PredictiveModel from "@/components/predictiveModel";
 import MarketInsights from "@/components/marketInsights";
 import LiveMarketData from "@/components/liveMarketData";
 import HistoricalDataChart from "@/components/historicalDataChart";
-// import SendUserData from "./sendUserData";
+import StockSelector from "@/components/stock-select";
 import FinancialNewsFeed from "@/components/financialNewsFeed";
 import AnomalyDetectionChart from "@/components/anomalyDetectionChart";
 import PredictionConfidence from "@/components/predictionConfidence";
@@ -25,15 +25,14 @@ import AnalystFeedback from "@/components/analystFeedback";
 
 export default function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
-    const [activeFeature, setActiveFeature] = useState("welcome"); // Controls what is displayed
+    const [activeFeature, setActiveFeature] = useState("insight"); // Controls what is displayed
     const [videoMessage, setVideoMessage] = useState(null);
+    const [selectedStock, setSelectedStock] = useState(null);
     const router = useRouter();
 
-
-    const handleVideoResponse = (video) => {
-      setVideoMessage(video);
-    };
-
+    const handleStockSelection = (stock) => {  //Handler to update stock selection
+      setSelectedStock(stock);
+  };
 
   return (
     
@@ -60,11 +59,11 @@ export default function Dashboard() {
 
         <nav className="flex flex-col gap-4">
           {[
-            { feature: "welcome", label: "Live Market", c1:"bg-gray-500", c2:"hover:bg-gray-700", icon: <MdOutlineSpeakerNotes /> },
+            { feature: "insight", label: "Market Insights", c1:"bg-yellow-500 ", c2:"hover:bg-yellow-700", icon: <TbReportSearch /> },
+            // { feature: "welcome", label: "Live Market", c1:"bg-gray-500", c2:"hover:bg-gray-700", icon: <MdOutlineSpeakerNotes /> },
             { feature: "advice", label: "Financial Advice", c1:"bg-blue-500 ", c2:"hover:bg-blue-700", icon: <MdOutlineSpeakerNotes /> },
             { feature: "report", label: "System Report", c1:"bg-green-500 ", c2:"hover:bg-green-700", icon: <BiSolidReport /> },
             { feature: "predictive", label: "Predictive Modeling", c1:"bg-purple-500 ", c2:"hover:bg-purple-700", icon: <TbReportSearch /> },
-            { feature: "insight", label: "Market Insights & Trends", c1:"bg-yellow-500 ", c2:"hover:bg-yellow-700", icon: <TbReportSearch /> },
           ].map(({ feature, label, icon, c1, c2 }) => (
             <Button
               key={feature}
@@ -99,10 +98,18 @@ export default function Dashboard() {
           transition={{ duration: 0.3 }}
         >
 
-            {activeFeature === "welcome" && (
+            {activeFeature === "insight" && (
               <div>
                 <p>Welcome to Γ Finance System! <br/> Use the sidebar to navigate through the available features.</p>
-                <LiveMarketData />
+               
+               {/* Stock Selector at the top */}
+                <StockSelector onStockSelect={setSelectedStock} />
+               
+                <LiveMarketData selectedStock={selectedStock}/>
+                <MarketInsights selectedStock={selectedStock}/>
+                <HistoricalDataChart selectedStock={selectedStock}/>
+                <FinancialNewsFeed selectedStock={selectedStock}/>
+                <AnomalyDetectionChart selectedStock={selectedStock}/>
               </div>
             )}
 
@@ -118,14 +125,11 @@ export default function Dashboard() {
               </div>
             )
             }
-            {activeFeature === "insight" && (
+            {/* {activeFeature === "insight" && (
               <div>
-                <MarketInsights />
-                <HistoricalDataChart />
-                <FinancialNewsFeed />
-                <AnomalyDetectionChart />
+                
               </div>
-            )}
+            )} */}
             {activeFeature === "predictive" && (
               <div>
                 <PredictiveModel />
