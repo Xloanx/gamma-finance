@@ -5,13 +5,13 @@ import { IoReloadCircleSharp } from "react-icons/io5";
 import { Button } from "./ui/button";
 
 const API_KEYS = [
-  { key: process.env.NEXT_PUBLIC_ALPHA_VANTAGE_API_KEY, type: "alpha" },
-  { key: process.env.NEXT_PUBLIC_MARKETSTACK_API_KEY, type: "marketstack" },
-  { key: process.env.NEXT_PUBLIC_FINANCIAL_MODELING_PREP_KEY, type: "fmp" },
-  { key: process.env.NEXT_PUBLIC_TWELVE_DATA_API_KEY, type: "twelvedata" },
-  { key: process.env.NEXT_PUBLIC_INTRINIO_API_KEY, type: "intrinio" },
-  { key: process.env.NEXT_PUBLIC_POLYGON_API_KEY, type: "polygon" },
-  { key: process.env.NEXT_PUBLIC_TIINGO_API_KEY, type: "tiingo" },
+  { key: process.env.NEXT_ALPHA_VANTAGE_API_KEY, type: "alpha" },
+  { key: process.env.NEXT_MARKETSTACK_API_KEY, type: "marketstack" },
+  { key: process.env.NEXT_FINANCIAL_MODELING_PREP_KEY, type: "fmp" },
+  { key: process.env.NEXT_TWELVE_DATA_API_KEY, type: "twelvedata" },
+  { key: process.env.NEXT_INTRINIO_API_KEY, type: "intrinio" },
+  { key: process.env.NEXT_POLYGON_API_KEY, type: "polygon" },
+  { key: process.env.NEXT_TIINGO_API_KEY, type: "tiingo" },
 ];
 
 const getApiUrl = (stock, apiKeyObj) => {

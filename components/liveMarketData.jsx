@@ -3,14 +3,14 @@ import { IoReloadCircleSharp } from "react-icons/io5";
 import { Button } from "./ui/button";
 // MARKETSTACK_API_KEY
 const API_KEYS = [
-  { key: process.env.NEXT_PUBLIC_ALPHA_VANTAGE_API_KEY, provider: "alphaVantage" },
-  { key: process.env.NEXT_PUBLIC_MARKETSTACK_API_KEY, provider: "marketStack" },
-  { key: process.env.NEXT_PUBLIC_FMP_API_KEY, provider: "fmp" },
-  { key: process.env.NEXT_PUBLIC_TWELVE_DATA_API_KEY, provider: "twelveData" },
-  { key: process.env.NEXT_PUBLIC_POLYGON_API_KEY, provider: "polygon" },
-  { key: process.env.NEXT_PUBLIC_IEX_CLOUD_API_KEY, provider: "iexCloud" },
-  { key: process.env.NEXT_PUBLIC_FINNHUB_API_KEY, provider: "finnhub" },
-  { key: process.env.NEXT_PUBLIC_YAHOO_FINANCE_API_KEY, provider: "yahooFinance" }
+  { key: process.env.NEXT_ALPHA_VANTAGE_API_KEY, provider: "alphaVantage" },
+  { key: process.env.NEXT_MARKETSTACK_API_KEY, provider: "marketStack" },
+  { key: process.env.NEXT_FMP_API_KEY, provider: "fmp" },
+  { key: process.env.NEXT_TWELVE_DATA_API_KEY, provider: "twelveData" },
+  { key: process.env.NEXT_POLYGON_API_KEY, provider: "polygon" },
+  { key: process.env.NEXT_IEX_CLOUD_API_KEY, provider: "iexCloud" },
+  { key: process.env.NEXT_FINNHUB_API_KEY, provider: "finnhub" },
+  { key: process.env.NEXT_YAHOO_FINANCE_API_KEY, provider: "yahooFinance" }
 ];
 
 export default function LiveMarketData({ selectedStock }) {

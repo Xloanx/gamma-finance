@@ -3,10 +3,10 @@ import { IoReloadCircleSharp } from "react-icons/io5";
 import { Button } from "./ui/button";
 
 const API_KEYS = [
-  { key: process.env.NEXT_PUBLIC_ALPHA_VANTAGE_API_KEY, type: "alpha" },
-  { key: process.env.NEXT_PUBLIC_TWELVE_DATA_API_KEY, type: "twelvedata" },
+  { key: process.env.NEXT_ALPHA_VANTAGE_API_KEY, type: "alpha" },
+  { key: process.env.NEXT_TWELVE_DATA_API_KEY, type: "twelvedata" },
   // { key: process.env.NEXT_PUBLIC_INTRINIO_API_KEY, type: "intrinio" },
-  { key: process.env.NEXT_PUBLIC_POLYGON_API_KEY, type: "polygon" },
+  { key: process.env.NEXT_POLYGON_API_KEY, type: "polygon" },
 ];
 
 const NEWS_CATEGORY = "financial_markets";
